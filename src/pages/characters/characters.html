@@ -14,5 +14,29 @@
 
 
 <ion-content padding>
-
+<ion-card *ngFor="#character of characters">
+        <ion-item>
+            <h2><strong>{{character.name}}</strong></h2>
+            <p>
+                <ion-badge light>lv {{character.level}}</ion-badge> <span *ngFor="#class of character.Classes | IDtoDataPipe: classes">{{class.name}}</span></p>
+        </ion-item>
+        <div [ngStyle]="{'background-image':'url('+character.image+')'}" style="height:40vh;background-size:cover;background-position:center center"></div>
+        <ion-item>
+            <button primary clear item-left>
+                <ion-icon name="paper"></ion-icon>
+                <div>Sheet</div>
+            </button>
+            <button danger clear item-left>
+                <ion-icon name="create"></ion-icon>
+                <div>Edit</div>
+            </button>
+            <button secondary clear item-left>
+                <ion-icon name="print"></ion-icon>
+                <div>Print</div>
+            </button>
+            <ion-note item-right>
+                11h ago
+            </ion-note>
+        </ion-item>
+    </ion-card>
 </ion-content>

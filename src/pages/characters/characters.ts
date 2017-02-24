@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { DataService } from '../../data/data-service';
+import { Ability } from '../../data/models/Ability-model';
+import { Character } from '../../data/models/Character-model';
+import { ClassModel } from '../../data/models/Class-model';
 
 /*
   Generated class for the Characters page.
@@ -13,7 +17,29 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class CharactersPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  selectedItem: any;
+  icons: string[];
+  items: Array<{ title: string, note: string, icon: string }>;
+  characters: Array<Character> = [];
+  abilities: Array<Ability>;
+  classes: Array<ClassModel>;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private dataHelper: DataService) {
+    // If we navigated to this page, we will have an item available as a nav param
+    this.selectedItem = navParams.get('item');
+
+    this.characters = this.dataHelper.getCharacters();
+
+    if (this.characters.length == 0) {
+      this.characters = [
+        new Character(),
+        new Character(),
+        new Character()
+      ];
+    }
+
+
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CharactersPage');
